@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Sparkles,
   Moon,
@@ -43,7 +43,7 @@ const TonightView = ({
     [unwatched],
   );
   const spaceLabel =
-    spaceName && spaceName.trim() ? spaceName.trim() : 'HearthUser';
+    spaceName && spaceName.trim() ? spaceName.trim() : 'Tonight';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPickModalOpen, setIsPickModalOpen] = useState(false);
   const [pickFilterMode, setPickFilterMode] = useState(null); // 'vibe', 'energy', or null
@@ -76,12 +76,11 @@ const TonightView = ({
     }
   }, [detailItem, items]);
 
-  const buildDailyTray = useCallback(
-    (pool, type) => {
-      if (pool.length === 0) return [];
-      const storageKey = `${DAILY_TRAY_STORAGE_PREFIX}:${
-        spaceId || 'anon'
-      }:${type}:${todayKey}`;
+  const buildDailyTray = (pool, type) => {
+    if (pool.length === 0) return [];
+    const storageKey = `${DAILY_TRAY_STORAGE_PREFIX}:${
+      spaceId || 'anon'
+    }:${type}:${todayKey}`;
     try {
       const cached = JSON.parse(localStorage.getItem(storageKey) || 'null');
       const ids = Array.isArray(cached?.ids) ? cached.ids : [];
@@ -104,18 +103,16 @@ const TonightView = ({
       console.warn('Failed to cache tray', err);
     }
     return tray;
-  },
-    [spaceId, todayKey],
-  );
+  };
 
   // Logic to generate the "Tonight Tray"
   // We want 1 Light, 1 Balanced, 1 Focused if available, otherwise fallback to random
   const movieSuggestions = useMemo(() => {
     return buildDailyTray(unwatchedMovies, 'movie');
-  }, [unwatchedMovies, buildDailyTray]);
+  }, [unwatchedMovies, spaceId, todayKey, buildDailyTray]);
   const showSuggestions = useMemo(() => {
     return buildDailyTray(unwatchedShows, 'show');
-  }, [unwatchedShows, buildDailyTray]);
+  }, [unwatchedShows, spaceId, todayKey, buildDailyTray]);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -355,8 +352,57 @@ const TonightView = ({
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Vibe Filter Modal */}
+      {/* Bottom Nav - Add, Tonight & Library */}
+      <nav
+        className="fixed left-1/2 -translate-x-1/2 bottom-6 z-40 max-w-md w-[calc(100%-3rem)]"
+        style={{
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        }}
+      >
+        <div className="bg-stone-900/40 backdrop-blur-2xl border border-stone-700/50 rounded-3xl shadow-2xl shadow-black/40 p-2">
+          <div className="flex items-center justify-around gap-2">
+            {/* Add Button */}
+            <button
+              onClick={onAdd}
+              className="group flex-1 py-3 px-4 flex flex-col items-center gap-1.5 rounded-2xl hover:bg-white/5 transition-all duration-300 active:scale-95"
+              title="Add new item"
+            >
+              <Plus className="w-6 h-6 text-stone-300 group-hover:text-amber-300 transition-colors" />
+              <span className="text-xs font-bold tracking-wide text-stone-400 group-hover:text-stone-200 transition-colors">
+                Add
+              </span>
+            </button>
+
+            {/* Tonight Button - Current Page (inactive) */}
+            <button
+              disabled
+              className="group flex-1 py-3 px-4 flex flex-col items-center gap-1.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 cursor-default"
+              title="Tonight"
+            >
+              <Moon className="w-6 h-6 text-amber-400" />
+              <span className="text-xs font-bold tracking-wide text-amber-300">
+                Tonight
+              </span>
+            </button>
+
+            {/* Library Button */}
+            <button
+              onClick={goToShelf}
+              className="group flex-1 py-3 px-4 flex flex-col items-center gap-1.5 rounded-2xl hover:bg-white/5 transition-all duration-300 active:scale-95"
+              title="Go to Library"
+            >
+              <BookOpen className="w-6 h-6 text-stone-300 group-hover:text-stone-100 transition-colors" />
+              <span className="text-xs font-bold tracking-wide text-stone-400 group-hover:text-stone-200 transition-colors">
+                Library
+              </span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Vibe Filter Modal */}
         {isPickModalOpen && pickFilterMode === 'vibe' && (
           <>
             <button
@@ -607,54 +653,6 @@ const TonightView = ({
           </div>
         )}
       </div>
-
-      {/* Bottom Nav - Add, Tonight & Library */}
-      <nav
-        className="fixed left-1/2 -translate-x-1/2 bottom-6 z-40 max-w-md w-[calc(100%-3rem)]"
-        style={{
-          paddingBottom: 'env(safe-area-inset-bottom)',
-        }}
-      >
-        <div className="bg-stone-900/80 backdrop-blur-2xl border border-stone-700/50 rounded-3xl shadow-2xl shadow-black/40 p-2">
-          <div className="flex items-center justify-around gap-2">
-            {/* Add Button */}
-            <button
-              onClick={onAdd}
-              className="group flex-1 py-3 px-4 flex flex-col items-center gap-1.5 rounded-2xl hover:bg-white/5 transition-all duration-300 active:scale-95"
-              title="Add new item"
-            >
-              <Plus className="w-6 h-6 text-stone-300 group-hover:text-amber-300 transition-colors" />
-              <span className="text-xs font-bold tracking-wide text-stone-400 group-hover:text-stone-200 transition-colors">
-                Add
-              </span>
-            </button>
-
-            {/* Tonight Button - Current Page (inactive) */}
-            <button
-              disabled
-              className="group flex-1 py-3 px-4 flex flex-col items-center gap-1.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 cursor-default"
-              title="Tonight"
-            >
-              <Moon className="w-6 h-6 text-amber-400" />
-              <span className="text-xs font-bold tracking-wide text-amber-300">
-                Tonight
-              </span>
-            </button>
-
-            {/* Library Button */}
-            <button
-              onClick={goToShelf}
-              className="group flex-1 py-3 px-4 flex flex-col items-center gap-1.5 rounded-2xl hover:bg-white/5 transition-all duration-300 active:scale-95"
-              title="Go to Library"
-            >
-              <BookOpen className="w-6 h-6 text-stone-300 group-hover:text-stone-100 transition-colors" />
-              <span className="text-xs font-bold tracking-wide text-stone-400 group-hover:text-stone-200 transition-colors">
-                Library
-              </span>
-            </button>
-          </div>
-        </div>
-      </nav>
     </div>
   );
 };
