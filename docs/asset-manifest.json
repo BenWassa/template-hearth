@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/hearthMVP/static/css/main.37b40b90.css",
-    "main.js": "/hearthMVP/static/js/main.1991b49a.js",
+    "main.css": "/hearthMVP/static/css/main.9feb0331.css",
+    "main.js": "/hearthMVP/static/js/main.a551e89d.js",
     "static/media/hearth_vector.png": "/hearthMVP/static/media/hearth_vector.d1d063a7b372f912c2da.png",
     "index.html": "/hearthMVP/index.html",
-    "main.37b40b90.css.map": "/hearthMVP/static/css/main.37b40b90.css.map",
-    "main.1991b49a.js.map": "/hearthMVP/static/js/main.1991b49a.js.map"
+    "main.9feb0331.css.map": "/hearthMVP/static/css/main.9feb0331.css.map",
+    "main.a551e89d.js.map": "/hearthMVP/static/js/main.a551e89d.js.map"
   },
   "entrypoints": [
-    "static/css/main.37b40b90.css",
-    "static/js/main.1991b49a.js"
+    "static/css/main.9feb0331.css",
+    "static/js/main.a551e89d.js"
   ]
 }

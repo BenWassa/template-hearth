@@ -122,8 +122,7 @@ const TonightView = ({
   };
 
   return (
-    <>
-      <div className="flex-1 flex flex-col animate-in fade-in duration-500">
+    <div className="flex-1 flex flex-col animate-in fade-in duration-500">
       {isMenuOpen && (
         <button
           className="fixed inset-0 z-20 cursor-default"
@@ -404,7 +403,7 @@ const TonightView = ({
       </nav>
 
       {/* Vibe Filter Modal */}
-        {isPickModalOpen && pickFilterMode === 'vibe' && (
+      {isPickModalOpen && pickFilterMode === 'vibe' && (
           <>
             <button
               className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm cursor-default"
@@ -500,20 +499,20 @@ const TonightView = ({
 
                 {/* Submit button removed — selecting a vibe picks immediately */}
               </div>
-            </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
 
-        <ItemDetailsModal
-          isOpen={isDetailOpen}
-          item={detailItem}
-          onClose={closeDetails}
-          onToggleStatus={onToggleStatus}
-          onUpdate={onUpdate}
-        />
+      <ItemDetailsModal
+        isOpen={isDetailOpen}
+        item={detailItem}
+        onClose={closeDetails}
+        onToggleStatus={onToggleStatus}
+        onUpdate={onUpdate}
+      />
 
-        {/* Energy Filter Modal */}
-        {isPickModalOpen && pickFilterMode === 'energy' && (
+      {/* Energy Filter Modal */}
+      {isPickModalOpen && pickFilterMode === 'energy' && (
           <>
             <button
               className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm cursor-default"
@@ -626,9 +625,9 @@ const TonightView = ({
               </div>
             </div>
           </>
-        )}
+      )}
 
-        {isAboutOpen && (
+      {isAboutOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/80 p-6">
             <div className="relative w-full max-w-sm rounded-2xl border border-stone-800 bg-stone-950 p-6 shadow-2xl">
               <button
@@ -652,9 +651,8 @@ const TonightView = ({
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 
