@@ -9,7 +9,7 @@ const VIEW_STORAGE_KEY = 'hearth:last_view';
 const VIEW_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 const ITEMS_STORAGE_KEY = 'hearth_template_items_v1';
 const SPACE_NAME_STORAGE_KEY = 'hearth_template_space_name';
-const DEFAULT_SPACE_NAME = 'Tonight';
+const DEFAULT_SPACE_NAME = 'HearthUser';
 const LOCAL_SPACE_ID = 'local';
 
 const safeStorage = {

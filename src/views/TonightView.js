@@ -43,7 +43,7 @@ const TonightView = ({
     [unwatched],
   );
   const spaceLabel =
-    spaceName && spaceName.trim() ? spaceName.trim() : 'Tonight';
+    spaceName && spaceName.trim() ? spaceName.trim() : 'HearthUser';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPickModalOpen, setIsPickModalOpen] = useState(false);
   const [pickFilterMode, setPickFilterMode] = useState(null); // 'vibe', 'energy', or null
@@ -109,10 +109,10 @@ const TonightView = ({
   // We want 1 Light, 1 Balanced, 1 Focused if available, otherwise fallback to random
   const movieSuggestions = useMemo(() => {
     return buildDailyTray(unwatchedMovies, 'movie');
-  }, [unwatchedMovies, spaceId, todayKey, buildDailyTray]);
+  }, [unwatchedMovies, buildDailyTray]);
   const showSuggestions = useMemo(() => {
     return buildDailyTray(unwatchedShows, 'show');
-  }, [unwatchedShows, spaceId, todayKey, buildDailyTray]);
+  }, [unwatchedShows, buildDailyTray]);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
