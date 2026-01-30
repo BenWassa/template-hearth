@@ -122,7 +122,8 @@ const TonightView = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col animate-in fade-in duration-500">
+    <>
+      <div className="flex-1 flex flex-col animate-in fade-in duration-500">
       {isMenuOpen && (
         <button
           className="fixed inset-0 z-20 cursor-default"
@@ -653,7 +654,7 @@ const TonightView = ({
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
