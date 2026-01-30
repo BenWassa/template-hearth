@@ -177,7 +177,8 @@ export const useAppState = () => {
 
   const updateItems = (updater) => {
     setItems((prev) => {
-      const nextItems = typeof updater === 'function' ? updater(prev) : updater;
+      const nextItems =
+        typeof updater === 'function' ? updater(prev) : updater;
       persistItems(nextItems);
       return nextItems;
     });
@@ -283,9 +284,7 @@ export const useAppState = () => {
     if (
       typeof window !== 'undefined' &&
       !window.confirm(
-        `Delete ${ids.length} item${
-          ids.length === 1 ? '' : 's'
-        }? This cannot be undone.`,
+        `Delete ${ids.length} item${ids.length === 1 ? '' : 's'}? This cannot be undone.`,
       )
     ) {
       return false;
