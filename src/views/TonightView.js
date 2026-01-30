@@ -609,13 +609,13 @@ const TonightView = ({
 
     {/* Bottom Nav - Add, Tonight & Library */}
     <nav
-      className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 max-w-md w-[calc(100%-3rem)]"
+      className="fixed inset-x-0 bottom-0 z-50 flex items-end justify-center pointer-events-none"
       style={{
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
-      <div className="bg-stone-900/80 backdrop-blur-2xl border border-stone-700/50 rounded-3xl shadow-2xl shadow-black/40 p-2 min-h-[80px]">
-        <div className="flex items-center justify-around gap-2">
+      <div className="bg-stone-900/80 backdrop-blur-2xl border border-stone-700/50 rounded-3xl shadow-2xl shadow-black/40 p-2 min-h-[80px] max-w-md w-[calc(100%-3rem)] pointer-events-auto">
+        <div className="flex items-center justify-around gap-2 pointer-events-auto">
           {/* Add Button */}
           <button
             onClick={onAdd}
