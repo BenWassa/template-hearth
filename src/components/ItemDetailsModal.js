@@ -89,33 +89,34 @@ const ItemDetailsModal = ({
     [rawItem?.title],
   );
 
-  const item = rawItem
-    ? {
-        ...mediaDetails,
-        ...rawItem,
-        title: rawItem.title?.trim() || '[add title]',
-        year:
-          rawItem.year?.toString().trim() ||
-          mediaDetails?.year?.toString().trim() ||
-          '[add year]',
-        director:
-          rawItem.director?.toString().trim() ||
-          mediaDetails?.director?.toString().trim() ||
-          '[add director]',
-        note: rawItem.note?.toString().trim() || '',
-        actors: rawItem.actors ?? rawItem.cast ?? mediaDetails?.actors ?? [],
-        genres: rawItem.genres ?? mediaDetails?.genres ?? [],
-        runtimeMinutes:
-          rawItem.runtimeMinutes ?? mediaDetails?.runtimeMinutes ?? '',
-        type: rawItem.type ?? mediaDetails?.type,
-        backdrop:
-          rawItem.backdrop ??
-          rawItem.backdropPath ??
-          rawItem.backdrop_path ??
-          mediaDetails?.backdrop,
-        poster: rawItem.poster ?? mediaDetails?.poster,
-      }
-    : null;
+  const item = useMemo(() => {
+    if (!rawItem) return null;
+    return {
+      ...mediaDetails,
+      ...rawItem,
+      title: rawItem.title?.trim() || '[add title]',
+      year:
+        rawItem.year?.toString().trim() ||
+        mediaDetails?.year?.toString().trim() ||
+        '[add year]',
+      director:
+        rawItem.director?.toString().trim() ||
+        mediaDetails?.director?.toString().trim() ||
+        '[add director]',
+      note: rawItem.note?.toString().trim() || '',
+      actors: rawItem.actors ?? rawItem.cast ?? mediaDetails?.actors ?? [],
+      genres: rawItem.genres ?? mediaDetails?.genres ?? [],
+      runtimeMinutes:
+        rawItem.runtimeMinutes ?? mediaDetails?.runtimeMinutes ?? '',
+      type: rawItem.type ?? mediaDetails?.type,
+      backdrop:
+        rawItem.backdrop ??
+        rawItem.backdropPath ??
+        rawItem.backdrop_path ??
+        mediaDetails?.backdrop,
+      poster: rawItem.poster ?? mediaDetails?.poster,
+    };
+  }, [rawItem, mediaDetails]);
 
   useEffect(() => {
     setExpandedEpisodeId(null);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SPACE_ID_STORAGE_KEY } from '../config/constants.js';
+import { ENERGIES, SPACE_ID_STORAGE_KEY, VIBES } from '../config/constants.js';
 import { copyToClipboard } from '../utils/clipboard.js';
 import { slugifyTitle } from '../utils/text.js';
 import { useVersionUpdates } from './useVersionUpdates.js';
@@ -11,6 +11,30 @@ const ITEMS_STORAGE_KEY = 'hearth_template_items_v1';
 const SPACE_NAME_STORAGE_KEY = 'hearth_template_space_name';
 const DEFAULT_SPACE_NAME = 'HearthUser';
 const LOCAL_SPACE_ID = 'local';
+const VIBE_IDS = VIBES.map((vibe) => vibe.id);
+const ENERGY_IDS = ENERGIES.map((energy) => energy.id);
+
+const normalizeItem = (item) => {
+  if (!item) return item;
+  const mediaDefaults = item.title ? mediaMap[item.title] : null;
+  const mediaVibe = mediaDefaults?.vibe;
+  const mediaEnergy = mediaDefaults?.energy;
+  const hasValidVibe = VIBE_IDS.includes(item.vibe);
+  const hasValidEnergy = ENERGY_IDS.includes(item.energy);
+  const nextVibe = hasValidVibe
+    ? item.vibe
+    : VIBE_IDS.includes(mediaVibe)
+    ? mediaVibe
+    : item.vibe;
+  const nextEnergy = hasValidEnergy
+    ? item.energy
+    : ENERGY_IDS.includes(mediaEnergy)
+    ? mediaEnergy
+    : item.energy;
+
+  if (nextVibe === item.vibe && nextEnergy === item.energy) return item;
+  return { ...item, vibe: nextVibe, energy: nextEnergy };
+};
 
 const safeStorage = {
   get(key) {
@@ -76,11 +100,13 @@ const buildSeedItems = () => {
   const now = Date.now();
   return Object.entries(mediaMap).map(([title, details], index) => {
     const slug = slugifyTitle(title);
-    return {
+    return normalizeItem({
       id: slug || `item-${index}`,
       title,
       type: details?.type || 'movie',
       status: 'unwatched',
+      vibe: details?.vibe,
+      energy: details?.energy,
       poster: details?.poster,
       backdrop: details?.backdrop,
       year: details?.year,
@@ -91,7 +117,7 @@ const buildSeedItems = () => {
       totalSeasons: details?.totalSeasons,
       createdAt: now - index * 1000,
       updatedAt: now - index * 1000,
-    };
+    });
   });
 };
 
@@ -101,7 +127,13 @@ const loadItems = () => {
   try {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) {
-      return { items: parsed, didSeed: false };
+      let didNormalize = false;
+      const normalized = parsed.map((item) => {
+        const next = normalizeItem(item);
+        if (next !== item) didNormalize = true;
+        return next;
+      });
+      return { items: normalized, didSeed: false, didNormalize };
     }
   } catch (err) {
     console.warn('Failed to parse stored items', err);
@@ -144,9 +176,9 @@ export const useAppState = () => {
   }, [spaceId]);
 
   useEffect(() => {
-    const { items: seededItems, didSeed } = loadItems();
+    const { items: seededItems, didSeed, didNormalize } = loadItems();
     setItems(seededItems);
-    if (didSeed) {
+    if (didSeed || didNormalize) {
       safeStorage.set(ITEMS_STORAGE_KEY, JSON.stringify(seededItems));
     }
     setLoading(false);
