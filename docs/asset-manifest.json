@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/hearthMVP/static/css/main.9feb0331.css",
+    "main.js": "/hearthMVP/static/js/main.b6352683.js",
+    "static/media/hearth_vector.png": "/hearthMVP/static/media/hearth_vector.d1d063a7b372f912c2da.png",
+    "index.html": "/hearthMVP/index.html",
+    "main.9feb0331.css.map": "/hearthMVP/static/css/main.9feb0331.css.map",
+    "main.b6352683.js.map": "/hearthMVP/static/js/main.b6352683.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9feb0331.css",
+    "static/js/main.b6352683.js"
+  ]
+}

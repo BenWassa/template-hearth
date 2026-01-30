@@ -61,6 +61,19 @@ npm run dev
 npm run build
 ```
 
+## Deployment
+
+This template is configured for easy deployment to GitHub Pages:
+
+1. **Build the project**: `npm run build` (outputs to `docs/` folder)
+2. **Commit and push** the `docs/` folder to your repository
+3. **Enable GitHub Pages** in your repository settings:
+   - Go to Settings → Pages
+   - Set Source to "Deploy from a branch"
+   - Set Branch to `main` and folder to `/docs`
+
+The app will be available at `https://yourusername.github.io/repository-name/`
+
 ---
 
 ## Notes

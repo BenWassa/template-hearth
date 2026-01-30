@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "npm start",
     "start": "BROWSER=none react-scripts start",
-    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true BUILD_PATH=docs react-scripts build",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:ci": "eslint \"src/**/*.{js,jsx}\" --max-warnings=0",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json,md,html}\" \"public/**/*.{js,css,json,md,html}\"",
