@@ -614,7 +614,7 @@ const TonightView = ({
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
-      <div className="bg-stone-900/40 backdrop-blur-2xl border border-stone-700/50 rounded-3xl shadow-2xl shadow-black/40 p-2">
+      <div className="bg-stone-900/80 backdrop-blur-2xl border border-stone-700/50 rounded-3xl shadow-2xl shadow-black/40 p-2">
         <div className="flex items-center justify-around gap-2">
           {/* Add Button */}
           <button
