@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   Sparkles,
   Moon,
@@ -76,7 +76,7 @@ const TonightView = ({
     }
   }, [detailItem, items]);
 
-  const buildDailyTray = (pool, type) => {
+  const buildDailyTray = useCallback((pool, type) => {
     if (pool.length === 0) return [];
     const storageKey = `${DAILY_TRAY_STORAGE_PREFIX}:${
       spaceId || 'anon'
@@ -103,16 +103,16 @@ const TonightView = ({
       console.warn('Failed to cache tray', err);
     }
     return tray;
-  };
+  }, [spaceId, todayKey]);
 
   // Logic to generate the "Tonight Tray"
   // We want 1 Light, 1 Balanced, 1 Focused if available, otherwise fallback to random
   const movieSuggestions = useMemo(() => {
     return buildDailyTray(unwatchedMovies, 'movie');
-  }, [unwatchedMovies, spaceId, todayKey, buildDailyTray]);
+  }, [unwatchedMovies, buildDailyTray]);
   const showSuggestions = useMemo(() => {
     return buildDailyTray(unwatchedShows, 'show');
-  }, [unwatchedShows, spaceId, todayKey, buildDailyTray]);
+  }, [unwatchedShows, buildDailyTray]);
 
   const getGreeting = () => {
     const hour = new Date().getHours();

@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/template-hearth/static/css/main.d3a3a910.css",
-    "main.js": "/template-hearth/static/js/main.664c96df.js",
+    "main.js": "/template-hearth/static/js/main.730fdd65.js",
     "static/media/hearth_vector.png": "/template-hearth/static/media/hearth_vector.d1d063a7b372f912c2da.png",
     "index.html": "/template-hearth/index.html",
     "main.d3a3a910.css.map": "/template-hearth/static/css/main.d3a3a910.css.map",
-    "main.664c96df.js.map": "/template-hearth/static/js/main.664c96df.js.map"
+    "main.730fdd65.js.map": "/template-hearth/static/js/main.730fdd65.js.map"
   },
   "entrypoints": [
     "static/css/main.d3a3a910.css",
-    "static/js/main.664c96df.js"
+    "static/js/main.730fdd65.js"
   ]
 }
