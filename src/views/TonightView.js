@@ -609,7 +609,7 @@ const TonightView = ({
 
     {/* Bottom Nav - Add, Tonight & Library */}
     <nav
-      className="fixed left-1/2 -translate-x-1/2 bottom-0 z-50 max-w-md w-[calc(100%-3rem)]"
+      className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 max-w-md w-[calc(100%-3rem)]"
       style={{
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
