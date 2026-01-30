@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Check, Trash2, CheckCircle2 } from 'lucide-react';
-import { ENERGIES } from '../../config/constants.js';
+import { ENERGIES, VIBES } from '../../config/constants.js';
 import { getPosterSrc } from '../../utils/poster.js';
 import PosterPlaceholder from './PosterPlaceholder.js';
 
@@ -17,6 +17,7 @@ const PosterCard = ({
   const posterSrc = getPosterSrc(item);
   const isWatched = item.status === 'watched';
   const energyDef = ENERGIES.find((e) => e.id === item.energy);
+  const vibeDef = VIBES.find((v) => v.id === item.vibe);
 
   // Energy-based styling tokens
   const energyStyles = {
@@ -109,12 +110,13 @@ const PosterCard = ({
           </div>
         )}
 
-        {/* Energy Label Badge - Top Right (always visible) */}
+        {/* Energy & Vibe Label Badge - Top Right (always visible) */}
         <div
           className={`absolute top-2 right-2 px-1.5 py-0.5 rounded text-[10px] font-bold ${currentEnergyStyle.bg} ${currentEnergyStyle.text} flex items-center gap-0.5`}
-          title={`Energy: ${currentEnergyStyle.label}`}
+          title={`Energy: ${currentEnergyStyle.label}${vibeDef ? ` • Vibe: ${vibeDef.label}` : ''}`}
         >
           {energyDef?.icon && <energyDef.icon className="w-3 h-3" />}
+          {vibeDef?.icon && <vibeDef.icon className="w-3 h-3" />}
         </div>
 
         {/* Action Button - Mark Watched/Delete (hover on desktop, always on mobile) */}
